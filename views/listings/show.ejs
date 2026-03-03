@@ -5,7 +5,7 @@
                 <%= listing.title %>
             </h3>
         </div>
-        <div class="card col-6 offset-3 show-card">
+        <div class="card listing-card col-6 offset-3 show-card">
             <img src="<%=listing.image%>" class="card-img-top show-img" alt="listing_img">
             <div class="card-body">
                 <p class="card-text">
@@ -31,7 +31,8 @@
             <hr>
             <h4>Leave a review</h4>
 
-            <form action="/listings/<%= listing.id %>/reviews" method="POST" class="mb-3 mt-3" novalidate class="needs-validation">
+            <form action="/listings/<%= listing.id %>/reviews" method="POST" class="mb-3 mt-3" novalidate
+                class="needs-validation">
                 <div>
                     <label for="rating" , class="form-label">Rating</label>
                     <input type="range" , class="form-range" min="1" , max="5" , id="rating" , name="review[rating]">
@@ -41,9 +42,29 @@
                     <label for="comment" , class="form-label">Comments</label>
                     <textarea cols="50" , rows="5" id="comment" , name="review[comment]" class="form-control"
                         required></textarea>
-                        <div class="invalid-feedback">Please add some comments for review </div>
+                    <div class="invalid-feedback">Please add some comments for review </div>
                 </div>
                 <button class="btn btn-outline-dark">Submit</button>
             </form>
+
+            <hr />
+
+            <p><b>All Reviews</b></p>
+           
+            <div class="row">
+                <% for(review of listing.reviews){ %>
+                    <div class="card col-5 ms-3 mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Ashish Kumar</h5>
+                            <p class="card-text">
+                                <%= review.comment %>
+                            </p>
+                            <p class="card-text">
+                                <%= review.rating %> stars
+                            </p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
         </div>
     </div>
