@@ -3,25 +3,53 @@ const app = express();
 const users = require("./routes/user.js");
 const posts = require("./routes/post.js");
 const session = require("express-session");
+const flash = require("connect-flash");
+const path = require("path");
 // const cookieParser = require("cookie-parser");
 
-app.use(
-  session({
-    secret: "mySuperSecretString",
-    resave: false,
-    saveUninitialized: true,
-  }),
-);
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+const sessionOptions = {
+  secret: "mySuperSecretString",
+  resave: false,
+  saveUninitialized: true,
+};
+
+app.use(session(sessionOptions));
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.successMessages = req.flash("success");
+  res.locals.errorMessages = req.flash("error");
+  next();
+});
 // app.use(cookieParser("secretCode"));
 
-app.get("/requestCount", (req, res) => {
-  if (req.session.count) {
-    req.session.count++;
+app.get("/register", (req, res) => {
+  let { name = "Anonymous" } = req.query;
+  req.session.name = name;
+  if (name === "Anonymous") {
+    req.flash("error", "error, user not registered.");
   } else {
-    req.session.count = 1;
+    req.flash("success", "user registered successfully.");
   }
-  res.send(`You have sent ${req.session.count} request(s).`);
+  res.redirect("/hello");
 });
+
+app.get("/hello", (req, res) => {
+  // res.send(`hello, ${req.session.name}`);
+
+  res.render("page.ejs", { name: req.session.name });
+});
+
+// app.get("/requestCount", (req, res) => {
+//   if (req.session.count) {
+//     req.session.count++;
+//   } else {
+//     req.session.count = 1;
+//   }
+//   res.send(`You have sent ${req.session.count} request(s).`);
+// });
 
 // app.get("/test", (req, res) => {
 //   res.send("Test passed.");
