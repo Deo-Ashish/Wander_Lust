@@ -6,7 +6,6 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
-
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 const Listing = require("./models/listing.js");
@@ -66,6 +65,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   next();
 });
 
