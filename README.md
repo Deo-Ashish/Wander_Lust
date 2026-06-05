@@ -388,8 +388,8 @@ Passionate Full-Stack Developer focused on building scalable and user-friendly w
 
 ### Connect With Me
 
-- GitHub: https://github.com/yourusername
-- LinkedIn: https://linkedin.com/in/yourprofile
+- GitHub: https://github.com/deo-ashish
+- LinkedIn: https://linkedin.com/in/deo-ashish
 
 ---
 
