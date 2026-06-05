@@ -65,7 +65,3 @@ StayNest is a full-stack property discovery platform that connects travelers wit
 - Method Override
 - Joi Validation
 - Multer
-
----
-
-## 📂 Project Structure
