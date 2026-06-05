@@ -20,7 +20,7 @@ router.post("/signup", async (req, res) => {
         return next(err);
       }
 
-      req.flash("success", "Welcome to WanderLust!");
+      req.flash("success", "Welcome to StayNest!");
       res.redirect("/listings");
     });
   } catch (e) {
@@ -41,7 +41,7 @@ router.post(
     failureFlash: true,
   }),
   async (req, res) => {
-    req.flash("success", "Welcome back to WanderLust!");
+    req.flash("success", "Welcome back to StayNest!");
 
     let redirectUrl = res.locals.redirectUrl || "/listings";
     res.redirect(redirectUrl);
