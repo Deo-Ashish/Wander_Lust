@@ -12,15 +12,8 @@ const listingSchema = Schema({
   },
 
   image: {
-    type: String,
-
-    default:
-      "https://images.pexels.com/photos/53610/large-home-residential-house-architecture-53610.jpeg",
-
-    set: (v) =>
-      v === ""
-        ? "https://images.pexels.com/photos/53610/large-home-residential-house-architecture-53610.jpeg"
-        : v,
+    url: String,
+    filename: String,
   },
 
   price: {
