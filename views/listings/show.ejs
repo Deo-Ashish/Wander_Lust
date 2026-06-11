@@ -38,6 +38,8 @@
         </form>
     </div>
 
+
+
     
     <% } %>
     <div class="col-8 offset-3 ">
@@ -83,6 +85,8 @@
         </form>
 
 
+
+
         
         <% } %>
         <hr />
@@ -108,9 +112,13 @@
                 </div>
             </div>
 
+
+
             
             <% } %>
         </div>
+
+
 
         
         <% } %>
@@ -123,10 +131,9 @@
 </div>
 
 <script>
-    const listingLatitude = < ejs > 603761 listing.latitude 3762 <
-        /ejs>const listingLongitude =<%= listing.longitude 3762</ejs >
-        // Add this temporarily to debug
-        console.log("Lat:", listingLatitude, "Lng:", listingLongitude);
+        const listingLatitude = <%= listing.latitude %>
+        const listingLongitude = <%= listing.longitude %>
+            console.log("Lat:", listingLatitude, "Lng:", listingLongitude);
 
     var map = L.map('map').setView([listingLatitude, listingLongitude], 16);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
