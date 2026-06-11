@@ -35,10 +35,18 @@ const listingSchema = Schema({
     },
   ],
 
+  latitude: Number, // Ensure this is defined as Number
+  longitude: Number, // Ensure this is defined as Number
+
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+
+  // category: {
+  //   type: String,
+  //   enum: ["mountains", "arctic", "farms"]
+  // }
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

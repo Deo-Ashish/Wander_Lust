@@ -1,4 +1,5 @@
 const Listing = require("../models/listing");
+const { geocodeLocation } = require("../public/js/map");
 
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
@@ -33,8 +34,18 @@ module.exports.createListing = async (req, res, next) => {
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
-  await newListing.save();
 
+  const location = req.body.listing.location.trim();
+  const country = req.body.listing.country.trim();
+  const coordinates = await geocodeLocation(location, country);
+  if (coordinates) {
+    newListing.latitude = coordinates.latitude;
+    newListing.longitude = coordinates.longitude;
+  } else {
+    req.flash('error', `Could not geocode the location: ${location}. Please check the address.`);
+  }
+
+  await newListing.save();
   req.flash("success", "New listing created!");
   res.redirect("/listings");
 };
@@ -46,12 +57,24 @@ module.exports.renderEditForm = async (req, res, next) => {
     req.flash("error", "Edit Listing not found!");
     return res.redirect("/listings");
   }
-  res.render("listings/edit.ejs", { listing });
+
+  let originalImageUrl = listing.image.url;
+  originalImageUrl = originalImageUrl.replace("/upload", "/upload/w_250");
+
+  res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 
 module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+
+  if (typeof req.file !== "undefined") {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+  }
+
   req.flash("success", "Listing updated successfully!");
   res.redirect(`/listings/${id}`);
 };
