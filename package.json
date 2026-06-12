@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "v24.13.0" 
+  },
   "name": "majorproject",
   "version": "1.0.0",
   "main": "index.js",
@@ -10,8 +13,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "cloudinary": "^2.10.0",
+    "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "ejs": "^3.1.10",
