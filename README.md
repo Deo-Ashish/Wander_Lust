@@ -6,6 +6,10 @@ A full-stack property listing platform where users can discover, create, review,
 
 ## 📸 Screenshots
 
+### User Authentication
+
+<img width="100%" alt="Authentication" src="./screenshots/loginPage.png">
+
 ### Home Page
 
 <img width="100%" alt="Home Page" src="./screenshots/homePage.png">
@@ -21,10 +25,6 @@ A full-stack property listing platform where users can discover, create, review,
 ### Map Listing
 
 <img width="100%" alt="Edit Listing" src="./screenshots/map.png">
-
-### User Authentication
-
-<img width="100%" alt="Authentication" src="./screenshots/loginPage.png">
 
 ---
 
