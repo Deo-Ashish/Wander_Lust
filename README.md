@@ -8,23 +8,23 @@ A full-stack property listing platform where users can discover, create, review,
 
 ### Home Page
 
-<img width="100%" alt="Home Page" src="/homePage.png">
+<img width="100%" alt="Home Page" src="./screenshots/homePage.png">
 
 ### Listing Details
 
-<img width="100%" alt="Listing Details" src="">
+<img width="100%" alt="Listing Details" src="./screenshots/listingPage.png">
 
 ### Create Listing
 
-<img width="100%" alt="Create Listing" src="">
+<img width="100%" alt="Create Listing" src="./screenshots/createListing.png">
 
-### Edit Listing
+### Map Listing
 
-<img width="100%" alt="Edit Listing" src="">
+<img width="100%" alt="Edit Listing" src="./screenshots/map.png">
 
 ### User Authentication
 
-<img width="100%" alt="Authentication" src="">
+<img width="100%" alt="Authentication" src="./screenshots/loginPage.png">
 
 ---
 
