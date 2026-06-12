@@ -120,7 +120,7 @@ CLOUD_API_SECRET=
 
 GitHub: https://github.com/deo-ashish
 
-LinkedIn: https://linkedin.com/in/deo-ashish
+LinkedIn: https://www.linkedin.com/in/ashish0gupta
 
 ---
 
