@@ -1,4 +1,9 @@
 <% layout("/layouts/boilerplate") %>
+
+<script>
+    const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+    const listingTitle = <%- JSON.stringify(listing.title) %>;
+</script>
 <div class="row">
     <div class="col-8 offset-3">
         <h3>
@@ -37,6 +42,10 @@
             <button class="btn btn-dark offset-5 edit-btn">Delete</button>
         </form>
     </div>
+
+
+
+
 
 
 
@@ -83,11 +92,6 @@
             </div>
             <button class="btn btn-outline-dark">Submit</button>
         </form>
-
-
-
-
-        
         <% } %>
         <hr />
         <% if (listing.reviews.length > 0) { %>
@@ -110,38 +114,15 @@
                         <button class="btn btn-dark btn-sm">Delete</button>
                     </form>
                 </div>
-            </div>
-
-
-
-            
-            <% } %>
+            </div>   
+         <% } %>
         </div>
-
-
-
-        
         <% } %>
     </div>
     <div class="col-8 offset-3 mb-3">
         <h3>Where you will be</h3>
-        <!-- ✅ Fix -->
-        <div id="map" style="height: 400px; width: 100%;"></div>
+        <div id="map" style="height: 400px; width: 650px;"></div>
     </div>
 </div>
 
-<script>
-        const listingLatitude = <%= listing.latitude %>
-        const listingLongitude = <%= listing.longitude %>
-            console.log("Lat:", listingLatitude, "Lng:", listingLongitude);
-
-    var map = L.map('map').setView([listingLatitude, listingLongitude], 16);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    L.marker([listingLatitude, listingLongitude]).addTo(map)
-        .bindPopup('<%= listing.title %>')
-        .openPopup();
-</script>
+<script src="/js/map.js"></script>

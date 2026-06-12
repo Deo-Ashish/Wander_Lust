@@ -1,25 +1,22 @@
-async function geocodeLocation(location, country) {
-  const query = encodeURIComponent(location + ", " + country);
-  const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`;
+const reversed = [...coordinates].reverse();
 
-  console.log("Nominatim URL:", nominatimUrl);
+var map = L.map('map').setView(reversed, 14);
 
-  try {
-    const response = await fetch(nominatimUrl); // Native fetch is available
-    const data = await response.json();
-    if (data && data.length > 0) {
-      return {
-        latitude: parseFloat(data[0].lat),
-        longitude: parseFloat(data[0].lon),
-      };
-    } else {
-      console.error(`Geocoding failed for: ${location}, ${country}`);
-      return null;
-    }
-  } catch (error) {
-    console.error("Error during geocoding:", error);
-    return null;
-  }
-}
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
 
-module.exports = { geocodeLocation };
+const redIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+var marker = L.marker(reversed, { icon: redIcon })
+    .bindPopup(`<b>${listingTitle}</b><br>Exact location will be provided after booking.`)
+    .openPopup()
+    .addTo(map);

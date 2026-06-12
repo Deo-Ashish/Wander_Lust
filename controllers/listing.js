@@ -1,5 +1,5 @@
 const Listing = require("../models/listing");
-const { geocodeLocation } = require("../public/js/map");
+const axios = require("axios");
 
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
@@ -28,6 +28,20 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.createListing = async (req, res, next) => {
+
+  const response = await axios.get("https://nominatim.openstreetmap.org/search", {
+    params: {
+      q: req.body.listing.location,
+      format: "json",
+      limit: 1
+    },
+    headers: {
+      "User-Agent": "StayNestApp/1.0"
+    }
+  });
+
+
+
   let url = req.file.path;
   let filename = req.file.filename;
 
@@ -35,17 +49,14 @@ module.exports.createListing = async (req, res, next) => {
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
 
-  const location = req.body.listing.location.trim();
-  const country = req.body.listing.country.trim();
-  const coordinates = await geocodeLocation(location, country);
-  if (coordinates) {
-    newListing.latitude = coordinates.latitude;
-    newListing.longitude = coordinates.longitude;
-  } else {
-    req.flash('error', `Could not geocode the location: ${location}. Please check the address.`);
+  newListing.geometry = {
+    type: "Point",
+    coordinates: [
+      parseFloat(response.data[0].lon),
+      parseFloat(response.data[0].lat),
+    ]
   }
-
-  await newListing.save();
+  let savedListing = await newListing.save();
   req.flash("success", "New listing created!");
   res.redirect("/listings");
 };
