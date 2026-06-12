@@ -127,3 +127,15 @@ body {
   padding: 1rem;
   border: 5px solid rgb(158, 151, 151);
 }
+
+
+/* footer */
+.f-info-socials a {
+    color: inherit;
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+.f-info-socials a:hover {
+    opacity: 0.8;
+}
