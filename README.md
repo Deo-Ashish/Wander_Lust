@@ -51,7 +51,7 @@ nodemon app.js
 Open:
 
 ```text
-http://localhost:8080
+(https://staynest-ahym.onrender.com)
 ```
 
 ---
