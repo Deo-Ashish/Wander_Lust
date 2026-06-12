@@ -8,7 +8,7 @@ A full-stack property listing platform where users can discover, create, review,
 
 ### Home Page
 
-<img width="100%" alt="Home Page" src="">
+<img width="100%" alt="Home Page" src="/homePage.png">
 
 ### Listing Details
 
