@@ -2,8 +2,16 @@ const Listing = require("../models/listing");
 const axios = require("axios");
 
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
+  const { category } = req.query;
+  let allListings;
+
+  if (category) {
+    allListings = await Listing.find({ category });
+  } else {
+    allListings = await Listing.find({});
+  }
+
+  res.render("listings/index.ejs", { allListings, activeCategory: category || null });
 };
 
 module.exports.renderNewForm = (req, res) => {
@@ -28,7 +36,6 @@ module.exports.showListing = async (req, res) => {
 };
 
 module.exports.createListing = async (req, res, next) => {
-
   const response = await axios.get("https://nominatim.openstreetmap.org/search", {
     params: {
       q: req.body.listing.location,
@@ -39,8 +46,6 @@ module.exports.createListing = async (req, res, next) => {
       "User-Agent": "StayNestApp/1.0"
     }
   });
-
-
 
   let url = req.file.path;
   let filename = req.file.filename;
@@ -55,7 +60,8 @@ module.exports.createListing = async (req, res, next) => {
       parseFloat(response.data[0].lon),
       parseFloat(response.data[0].lat),
     ]
-  }
+  };
+
   let savedListing = await newListing.save();
   req.flash("success", "New listing created!");
   res.redirect("/listings");
@@ -97,7 +103,6 @@ module.exports.destroyListing = async (req, res) => {
   res.redirect("/listings");
 };
 
-
 module.exports.renderSearch = async (req, res) => {
   const { q } = req.query;
 
@@ -114,5 +119,5 @@ module.exports.renderSearch = async (req, res) => {
     ],
   });
 
-  res.render("listings/index.ejs", { allListings: listings });
+  res.render("listings/index.ejs", { allListings: listings, activeCategory: null });
 };
