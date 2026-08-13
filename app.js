@@ -89,7 +89,12 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-    res.redirect("/listings");
+  res.redirect("/listings");
+});
+
+//Health Route for UptimeRobot
+app.get("/api/health", (req, res) => {
+  res.json({ status: "online", provider: "Groq", models: GROQ_MODELS })
 });
 
 app.use("/listings", listingRouter);
